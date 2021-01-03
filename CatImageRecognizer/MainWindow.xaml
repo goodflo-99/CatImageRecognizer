@@ -1,0 +1,49 @@
+﻿<Controls:MetroWindow x:Class="CatImageRecognizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:localControls="clr-namespace:CatImageRecognizer.UserControls"
+        xmlns:local="clr-namespace:CatImageRecognizer" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Розпізнавання котиків" Height="450" Width="800" ResizeMode="CanMinimize">
+
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:BooleanInverterConverter x:Key="booleanInverter"></local:BooleanInverterConverter>
+            <local:EmgCVImageToBitmapImage x:Key="cvImageToBitmapImage"></local:EmgCVImageToBitmapImage>
+            <local:BoolToVisibilityConverter  x:Key="boolVisibilityConverter"></local:BoolToVisibilityConverter>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Тренування і тестування" Command="{Binding OpenTrainWindowCommand}"></Button>
+            <Button IsEnabled="{Binding IsSavingNetwork, Converter={StaticResource booleanInverter}}" Content="Зберегти модель" Command="{Binding SaveNeuralNetwork}"></Button>
+            <Button IsEnabled="{Binding IsLoadingNetwork, Converter={StaticResource booleanInverter}}" Content="Завантажити модель" Command="{Binding LoadNeuralNetwork}"></Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Image Visibility="{Binding ModelNotLoaded, Converter={StaticResource boolVisibilityConverter}}" Source="SplashScreen1.jpg" Stretch="Fill" Margin="0,0,-0.4,0"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <localControls:DetectorArea HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DataContext="{Binding DetectorViewModel}"></localControls:DetectorArea>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="{StaticResource AccentColorBrush}">
+                <TextBlock Foreground="{StaticResource IdealForegroundColorBrush}" Margin="5" Text="{Binding StatusMessage}"></TextBlock>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Controls:MetroWindow>
