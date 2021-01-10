@@ -94,7 +94,7 @@ namespace CatImageRecognizer.NeuralNetworks
                 var error = network.GetCostLoss(inputs, outputs);
                 if (progressCallback != null)
                 {
-                    progressCallback(error, currentIteration, "Supervised");
+                    progressCallback(error, currentIteration, "ПІдконтрольний");
                 }
                 inputs.Dispose();
                 outputs.Dispose();

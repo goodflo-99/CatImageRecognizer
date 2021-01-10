@@ -104,7 +104,7 @@ namespace CatImageRecognizer.ViewModels
                 this.ProcessedImage = processedImage;
 
                 (ImageType imageType, List<System.Drawing.Rectangle> rectangles) = Detector.DetectCatInImageFile(NeuralNetwork, this.OriginalImage, this.ProcessedImage, (progress) => {
-                    StatusMessageUpdater(testingProgressMessage + " Прогрес - " + progress + "%");
+                    StatusMessageUpdater(testingProgressMessage + " Прогрес - " + progress.ToString("0") + "%");
                 });
 
                 if (imageType == ImageType.CAT)
@@ -117,11 +117,11 @@ namespace CatImageRecognizer.ViewModels
                     OriginalImage = OriginalImage.AddWeighted(rectanglesImage, 1, 1, 0);
                     var mainRectangle = AnchorBox.GetBoundingReactange(rectangles);
                     OriginalImage.Draw(mainRectangle, new Bgr(0, 200, 0), 5);
-                    OriginalImage.Draw("Кіт", new System.Drawing.Point(30, 120), FontFace.HersheyPlain, 8f, new Bgr(0, 200, 0), 10);
+                    OriginalImage.Draw("Cat", new System.Drawing.Point(30, 120), FontFace.HersheyPlain, 8f, new Bgr(0, 200, 0), 10);
                 }
                 else
                 {
-                    OriginalImage.Draw("Не кіт", new System.Drawing.Point(30, 120), FontFace.HersheyPlain, 8f, new Bgr(0, 0, 255), 10);
+                    OriginalImage.Draw("No cat", new System.Drawing.Point(30, 120), FontFace.HersheyPlain, 8f, new Bgr(0, 0, 255), 10);
                 }
 
                 var temp = this.OriginalImage;

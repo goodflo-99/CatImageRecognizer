@@ -484,7 +484,7 @@ namespace CatImageRecognizer.ViewModels
                         LocalImageCollection.Clear();
                     });
                     var localImages = LocalImage.ReadAllLocalImagesFromDirectory((progress) => {
-                        this.StatusMessage = standardMessage + " Прогрес - " + progress + "%";
+                        this.StatusMessage = standardMessage + " Прогрес - " + progress.ToString("0") + "%";
                     }).OrderBy(r=>Path.GetFileName(r.LocalPath));
 
                     if(localImages.Count() == 0)

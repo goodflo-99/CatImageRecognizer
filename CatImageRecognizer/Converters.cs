@@ -18,7 +18,7 @@ namespace CatImageRecognizer
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var catImageType = (ImageType)value;
-            return catImageType == ImageType.CAT ? "Кіт" : "Не кіт";
+            return catImageType == ImageType.CAT ? "Cat" : "No cat";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
